@@ -8,11 +8,14 @@ import ConfigParser
 import json
 import logging.handlers
 import os
+import sys
 
-config_path = "config.ini"
+config_path = "dnspod_cnf.ini"
 headers = {"Content-type": "application/x-www-form-urlencoded", "Accept": "text/json",
            "UserAgent": "server dns Client/1.0.0 (1195413185@qq.com)"}
 
+if not os.path.isfile(config_path):
+    sys.exit(0)
 
 def get_config():
     config = ConfigParser.ConfigParser()
