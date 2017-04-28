@@ -17,6 +17,7 @@ headers = {"Content-type": "application/x-www-form-urlencoded", "Accept": "text/
 if not os.path.isfile(config_path):
     sys.exit(0)
 
+
 def get_config():
     config = ConfigParser.ConfigParser()
     config.readfp(open(config_path), "rb")
