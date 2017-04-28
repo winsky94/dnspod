@@ -3,7 +3,7 @@
 
 2.如果目录/opt/server_init/不存在，则创建之
 
-3.将文件timer.sh和pypod.py上传到/opt/server_init/目录下
+3.将文件dnspod_cnf.ini,timer.sh和pypod.py上传到/opt/server_init/目录下
 
 4.修改文件权限
     chmod 777 /opt/server_init/timer.sh
