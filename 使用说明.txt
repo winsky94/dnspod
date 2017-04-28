@@ -15,6 +15,6 @@
     如果提示请选择编辑器（出现run-selector），选择3
 
     在文件中加入如下一行：每15分钟执行一次
-    /15 * * * * /opt/server_init/timer.sh
+    */15 * * * * /opt/server_init/timer.sh
 
     保存退出
