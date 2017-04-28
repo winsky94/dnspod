@@ -1,0 +1,20 @@
+1.检查服务器是否安装了python环境
+    如果没有安装Python，使用命令apt-get install python安装
+
+2.如果目录/opt/server_init/不存在，则创建之
+
+3.将文件timer.sh和pypod.py上传到/opt/server_init/目录下
+
+4.修改文件权限
+    chmod 777 /opt/server_init/timer.sh
+    chmod 777 /opt/server_init/pypod.py
+
+5.配置定时任务
+    cd ~
+    crontab -e
+    如果提示请选择编辑器（出现run-selector），选择3
+
+    在文件中加入如下一行：每15分钟执行一次
+    /15 * * * * /opt/server_init/timer.sh
+
+    保存退出

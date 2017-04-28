@@ -6,6 +6,8 @@ import httplib, urllib
 import socket
 import ConfigParser
 import json
+import logging.handlers
+import os
 
 config_path = "config.ini"
 headers = {"Content-type": "application/x-www-form-urlencoded", "Accept": "text/json",
@@ -31,9 +33,22 @@ base_param = dict(
     format="json",
 )
 
+log_file = "./logs/dnspod.log"
+if not os.path.exists("./logs"):
+    os.makedirs('./logs')
+log_level = logging.DEBUG
+logger = logging.getLogger("dnspodLogger")
+handler = logging.handlers.RotatingFileHandler(filename=log_file,
+                                               maxBytes=10 * 1024 * 1024,
+                                               backupCount=5)
+formatter = logging.Formatter("[%(asctime)s]%(message)s")
+handler.setFormatter(formatter)
+logger.addHandler(handler)
+logger.setLevel(log_level)
+
 
 def log(msg):
-    print msg
+    logger.info(msg)
 
 
 def get_ip():
@@ -166,7 +181,8 @@ def run():
                 ip = get_ip()
                 if ip != record["record_ip"]:
                     res = update(ip, domain_id, record["id"])
-                    log(res)
+                    if res:
+                        log("更新%s.%s的IP成功" % (sub_domain, domain))
                 else:
                     log("ip没有变化，无需修改")
             else:
