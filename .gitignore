@@ -1,0 +1,19 @@
+# ide dependence
+.idea/
+*.DS_Store
+.classpath
+.mymetadata
+.myumldata
+.projct
+.tern-project
+*.iml
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+aa.png
+ab.png
+
+*.log
