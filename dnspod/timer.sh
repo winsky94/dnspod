@@ -1,13 +1,13 @@
 #!/bin/bash
 
-dnspod_path="/opt/dnspod/pypod.py"
+dnspod_path="/opt/server_init/pypod.py"
 
 if [[ -f ${dnspod_path} ]]; then
 	if [[ ! -x ${dnspod_path} ]]; then
 		chmod u+x ${dnspod_path}
 	fi
 
-	python /opt/dnspod/pypod.py
+	python /opt/server_init/pypod.py
 fi
 
 
