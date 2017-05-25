@@ -10,11 +10,30 @@ import logging.handlers
 import os
 import sys
 
-config_path = "dnspod_cnf.ini"
+config_path = "/opt/server_init/dnspod_cnf.ini"
 headers = {"Content-type": "application/x-www-form-urlencoded", "Accept": "text/json",
            "UserAgent": "server dns Client/1.0.0 (1195413185@qq.com)"}
 
+log_file = "/opt/server_init/logs/dnspod.log"
+if not os.path.exists("/opt/server_init/logs"):
+    os.makedirs('/opt/server_init/logs')
+log_level = logging.DEBUG
+logger = logging.getLogger("dnspodLogger")
+handler = logging.handlers.RotatingFileHandler(filename=log_file,
+                                               maxBytes=10 * 1024 * 1024,
+                                               backupCount=5)
+formatter = logging.Formatter("[%(asctime)s]%(message)s")
+handler.setFormatter(formatter)
+logger.addHandler(handler)
+logger.setLevel(log_level)
+
+
+def log(msg):
+    logger.info(msg)
+
+
 if not os.path.isfile(config_path):
+    log("没有配置文件")
     sys.exit(0)
 
 
@@ -36,23 +55,6 @@ base_param = dict(
     login_password=password,
     format="json",
 )
-
-log_file = "./logs/dnspod.log"
-if not os.path.exists("./logs"):
-    os.makedirs('./logs')
-log_level = logging.DEBUG
-logger = logging.getLogger("dnspodLogger")
-handler = logging.handlers.RotatingFileHandler(filename=log_file,
-                                               maxBytes=10 * 1024 * 1024,
-                                               backupCount=5)
-formatter = logging.Formatter("[%(asctime)s]%(message)s")
-handler.setFormatter(formatter)
-logger.addHandler(handler)
-logger.setLevel(log_level)
-
-
-def log(msg):
-    logger.info(msg)
 
 
 def get_ip():
