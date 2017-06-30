@@ -48,6 +48,7 @@ email = config_param.get("global", "login_email")
 password = config_param.get("global", "login_password")
 domain = config_param.get("global", "domain")
 sub_domain = config_param.get("global", "sub_domain")
+sub_domain = sub_domain.lower()
 
 host = "dnsapi.cn"
 base_param = dict(
