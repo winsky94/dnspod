@@ -3,7 +3,6 @@
 # author:winsky
 # date:2017-4-26 
 import httplib, urllib
-import socket
 import ConfigParser
 import json
 import logging.handlers
@@ -29,7 +28,8 @@ logger.setLevel(log_level)
 
 
 def log(msg):
-    logger.info(msg)
+    # logger.info(msg)
+    print msg
 
 
 if not os.path.isfile(config_path):
@@ -59,11 +59,22 @@ base_param = dict(
 
 
 def get_ip():
+    """
+    # 目标网站挂了,换为访问我们自己的服务器获取ip
     sock = socket.create_connection(('ns1.dnspod.net', 6666))
     sock.settimeout(10)
     ip = sock.recv(16)
     sock.close()
     return ip
+    """
+
+    host = "root.dotwintech.com:88"
+    url = "http://root.dotwintech.com:88/ip_service/getIP.jsp"
+    conn = httplib.HTTPConnection(host)
+    conn.request(method="GET", url=url)
+    response = conn.getresponse()
+    res = response.read()
+    return res
 
 
 def post(uri, param):
@@ -193,7 +204,7 @@ def run():
                 else:
                     log("ip没有变化，无需修改")
             else:
-                log("没有找到符合条件的域名记录")
+                log("没有找到符合条件的记录")
                 create_record(domain_id)
         else:
             log("没有找到域名id")
